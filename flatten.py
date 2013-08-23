@@ -1,6 +1,8 @@
 import collections
 
 def flatten(list_a, list_b, max_depth):
+	"""Flatten two lists based on given depth"""
+	
 	# Check if the desired depth has been reached
 	if max_depth > 0:
 

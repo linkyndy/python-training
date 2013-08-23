@@ -1,4 +1,6 @@
 def merge_objects(a, b):
+	"""Merge objects regardless their depth"""
+	
 	# Store merged objects in new object
 	new = {}
 
@@ -41,3 +43,4 @@ a = {'x': [1, 2, 3], 'y': 1, 'z': set([1, 2, 3]), 'w': 'qweqwe', 't': {'a': [1, 
 b = {'x': [4, 5, 6], 'y': 4, 'z': set([4, 2, 3]), 'w': 'asdf', 't': {'a': [3, 2]}, 'm': "wer"}
 
 print merge_objects(a, b)
+# Should print: {'m': ([1], 'wer'), 't': {'a': [1, 2, 3, 2]}, 'w': 'qweqweasdf', 'y': 5, 'x': [1, 2, 3, 4, 5, 6], 'z': set([1, 2, 3, 4])}
