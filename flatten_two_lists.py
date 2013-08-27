@@ -9,9 +9,9 @@ def flatten_two_lists(a, b, depth):
 				return l
 			if len(l) == 0:
 				return []
-			else:
-				first, rest = l[0], l[1:]
-				return flatten(first, depth - 1) + flatten(rest, depth)
+			
+			first, rest = l[0], l[1:]
+			return flatten(first, depth - 1) + flatten(rest, depth)
 		else:
 			return [l]
 
