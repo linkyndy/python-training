@@ -35,8 +35,8 @@ class SwapKeyValuesTests(unittest.TestCase):
 		self.assertEqual(f(a), expected)
 
 	def testNestedTuple(self):
-		a = {'a': (1, (2), 'b': ((3), 4)}
-		expected = {(1, (2): 'a', ((3), 4): 'b'}
+		a = {'a': (1, (2)), 'b': ((3), 4)}
+		expected = {(1, (2)): 'a', ((3), 4): 'b'}
 		self.assertEqual(f(a), expected)
 
 	def testComplexTuple(self):
@@ -60,7 +60,7 @@ class SwapKeyValuesInvalidTests(unittest.TestCase):
 		self.assertFalse(f(a))
 
 	def testNestedDictionary(self):
-		a = {'a': {'b': {'c': 1}}
+		a = {'a': {'b': {'c': 1}}}
 		self.assertFalse(f(a))
 
 	def testTupleOne(self):
@@ -70,3 +70,9 @@ class SwapKeyValuesInvalidTests(unittest.TestCase):
 	def testTupleTwo(self):
 		a = {'a': (1, {'a': 2})}
 		self.assertFalse(f(a))
+
+def main():
+	unittest.main()
+
+if __name__ == '__main__':
+	main()
