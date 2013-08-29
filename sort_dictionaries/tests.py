@@ -1,22 +1,33 @@
 from sort_dictionaries import sort_dictionaries as f
 import unittest
+from tempfile import NamedTemporaryFile
 
 class SortDictionariesTests(unittest.TestCase):
-
-	def setUp(self):
-		pass
-
-	def tearDown(self):
-		pass
+	"""Various inputs for the dictionary sorting function"""
 
 	def testOne(self):
-		pass
+		data = 'a 1\nb 2\n\nb 0\na 9'
+		expected = '1 2'
+		with NamedTemporaryFile() as infile, NamedTemporaryFile() as outfile:
+			infile.write(data)
+			f(infile.name, outfile.name)
+			self.assertEqual(outfile.read(), expected)
 
 	def testTwo(self):
-		pass
+		data = 'b 1\nc 2\n\nb 0\na 9'
+		expected = '1 2'
+		with NamedTemporaryFile() as infile, NamedTemporaryFile() as outfile:
+			infile.write(data)
+			f(infile.name, outfile.name)
+			self.assertEqual(outfile.read(), expected)
 
 	def testThree(self):
-		pass
+		data = 'b 1\nc 2\n\nb 1\nc 2'
+		expected = '1 2'
+		with NamedTemporaryFile() as infile, NamedTemporaryFile() as outfile:
+			infile.write(data)
+			f(infile.name, outfile.name)
+			self.assertEqual(outfile.read(), expected)
 
 def main():
 	unittest.main()
