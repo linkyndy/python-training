@@ -50,6 +50,12 @@ class MergeTwoObjectsTests(unittest.TestCase):
 		expected = {'key': {'inner_key': 3}}
 		self.assertEqual(f(a, b), expected)
 
+	def testMultiDictionaryObjects(self):
+		a = {'key': {'inner_key': 1, 'another_key': 2}}
+		b = {'key': {'inner_key': 2, 'another_key': 3}}
+		expected = {'key': {'inner_key': 3, 'another_key': 5}}
+		self.assertEqual(f(a, b), expected)
+
 	def testDifferentTypeObjects(self):
 		a = {'key': 1}
 		b = {'key': 'abc'}
