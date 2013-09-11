@@ -51,13 +51,9 @@ class Player(object):
 class Dealer(Player):
 	"""Handles the dealer of the game"""
 
-	def deal(self, players):
-		"""Creates a deck and deals the cards to the players
-		and on the table
-		"""
+	def deal(self, deck, players):
+		"""Deals the cards to the players and on the table"""
 
-		deck = Deck()
-		
 		return {
 			'players': [{p: Hand(deck)} for p in players], 
 			'table': [deck.draw() for i in range(0, 5)]
@@ -66,17 +62,17 @@ class Dealer(Player):
 class Game(object):
 	"""Handles the poker game itself"""
 
-	def __init__(self, dealer, players, deal_times=1):
+	def __init__(self, dealer, players):
 		self.dealer = Dealer(dealer)
 		self.players = players
-		self.deal_times = deal_times
+		self.deck = Deck()
 
-	def play(self):
+	def play(self, times):
 		"""Plays a game consisting of several deal times"""
-		
+
 		game = []
 
-		for time in range(0, self.deal_times):
-			game.append(self.dealer.deal(self.players))
+		for t in range(0, times):
+			game.append(self.dealer.deal(self.deck, self.players))
 
 		return game
