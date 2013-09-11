@@ -65,7 +65,6 @@ class Game(object):
 	def __init__(self, dealer, players):
 		self.dealer = dealer
 		self.players = players
-		self.deck = Deck()
 
 	def play(self, times):
 		"""Plays a game consisting of several deal times"""
@@ -73,6 +72,6 @@ class Game(object):
 		game = []
 
 		for t in range(0, times):
-			game.append(self.dealer.deal(self.deck, self.players))
+			game.append(self.dealer.deal(Deck(), self.players))
 
 		return game
