@@ -63,7 +63,7 @@ class Game(object):
 	"""Handles the poker game itself"""
 
 	def __init__(self, dealer, players):
-		self.dealer = Dealer(dealer)
+		self.dealer = dealer
 		self.players = players
 		self.deck = Deck()
 
