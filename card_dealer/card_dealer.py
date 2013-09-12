@@ -66,7 +66,7 @@ class Game(object):
 		self.dealer = dealer
 		self.players = players
 
-	def play(self, times):
+	def play(self, times=1):
 		"""Plays a game consisting of several deal times"""
 
 		game = []
