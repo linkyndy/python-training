@@ -25,7 +25,7 @@ class Deck(object):
 		random.shuffle(self.cards)
 
 	def sort(self):
-		self.cards.sort()
+		self.cards.sort(key=lambda k: k.code)
 
 	def draw(self):
 		return self.cards.pop()
