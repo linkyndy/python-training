@@ -42,7 +42,7 @@ class Hand(object):
 class Player(object):
 	"""Handles players involved in the game"""
 
-	def __init__(self, name):
+	def __init__(self, name='unknown'):
 		self.name = name
 
 	def __str__(self):
