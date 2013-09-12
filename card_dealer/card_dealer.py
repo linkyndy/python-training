@@ -55,7 +55,7 @@ class Dealer(Player):
 		"""Deals the cards to the players and on the table"""
 
 		return {
-			'players': [{p: Hand(deck)} for p in players], 
+			'players': [{str(p): Hand(deck)} for p in players], 
 			'table': [deck.draw() for i in range(0, 5)]
 		}
 
