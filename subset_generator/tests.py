@@ -6,43 +6,27 @@ class GeneratorTests(unittest.TestCase):
 
 	def testEmptySet(self):
 		s = set()
-		subsets = []
 		expected = [set()]
 
-		for elem in f(s):
-			subsets.append(elem)
-
-		self.assertEqual(subsets, expected)
+		self.assertEqual([e for e in f(s)], expected)
 
 	def testAnotherEmptySet(self):
 		s = set([])
-		subsets = []
 		expected = [set([])]
 
-		for elem in f(s):
-			subsets.append(elem)
-
-		self.assertEqual(subsets, expected)
+		self.assertEqual([e for e in f(s)], expected)
 
 	def testOneElementSet(self):
 		s = set([1])
-		subsets = []
 		expected = [set([]), set([1])]
 
-		for elem in f(s):
-			subsets.append(elem)
-
-		self.assertEqual(subsets, expected)
+		self.assertEqual([e for e in f(s)], expected)
 
 	def testTwoElementSet(self):
 		s = set([1, 2])
-		subsets = []
 		expected = [set([]), set([1]), set([2]), set([1, 2])]
 
-		for elem in f(s):
-			subsets.append(elem)
-
-		self.assertEqual(subsets, expected)
+		self.assertEqual([e for e in f(s)], expected)
 
 def main():
 	unittest.main()
