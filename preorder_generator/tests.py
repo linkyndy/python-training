@@ -6,73 +6,45 @@ class GeneratorTests(unittest.TestCase):
 
 	def testEmptyTree(self):
 		tree = ()
-		nodes = []
 		expected = []
 
-		for node in f(tree):
-			nodes.append(node)
-
-		self.assertEqual(nodes, expected)
+		self.assertEqual([x for x in f(tree)], expected)
 
 	def testSingleNodeTree(self):
 		tree = ('a', None, None)
-		nodes = []
 		expected = ['a']
 
-		for node in f(tree):
-			nodes.append(node)
-
-		self.assertEqual(nodes, expected)
+		self.assertEqual([x for x in f(tree)], expected)
 
 	def testTwoNodeTree(self):
 		tree = ('a', ('b', None, None), None)
-		nodes = []
 		expected = ['a', 'b']
 
-		for node in f(tree):
-			nodes.append(node)
-
-		self.assertEqual(nodes, expected)
+		self.assertEqual([x for x in f(tree)], expected)
 
 	def testAnotherTwoNodeTree(self):
 		tree = ('a', None, ('b', None, None))
-		nodes = []
 		expected = ['a', 'b']
 
-		for node in f(tree):
-			nodes.append(node)
-
-		self.assertEqual(nodes, expected)
+		self.assertEqual([x for x in f(tree)], expected)
 
 	def testThreeNodeTree(self):
 		tree = ('a', ('b', None, None), ('c', None, None))
-		nodes = []
 		expected = ['a', 'b', 'c']
 
-		for node in f(tree):
-			nodes.append(node)
-
-		self.assertEqual(nodes, expected)
+		self.assertEqual([x for x in f(tree)], expected)
 
 	def testMultiNodeTree(self):
 		tree = ('a', ('b', ('c', None, None), None), ('d', None, ('e', None, None)))
-		nodes = []
 		expected = ['a', 'b', 'c', 'd', 'e']
 
-		for node in f(tree):
-			nodes.append(node)
-
-		self.assertEqual(nodes, expected)
+		self.assertEqual([x for x in f(tree)], expected)
 
 	def testAnotherMultiNodeTree(self):
 		tree = ('a', ('b', ('c', None, None), None), None)
-		nodes = []
 		expected = ['a', 'b', 'c']
 
-		for node in f(tree):
-			nodes.append(node)
-
-		self.assertEqual(nodes, expected)
+		self.assertEqual([x for x in f(tree)], expected)
 
 def main():
 	unittest.main()
