@@ -1,31 +1,9 @@
 class Singleton(type):
+	"""Metaclass which implements the singleton pattern"""
+
 	_instances = {}
 
-	def __call__(cls, *args, **kwargs):
-		if cls not in cls._instances:
-			cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-		return cls._instances[cls]
-
-class Test(object):
-	__metaclass__ = Singleton
-
-	@classmethod
-	def p(cls):
-		return cls._instances
-
-class AnotherTest(object):
-	__metaclass__ = Singleton
-
-	@classmethod
-	def p(cls):
-		return cls._instances
-
-if __name__ == '__main__':
-	t = Test()
-	u = Test()
-	print t.p()
-	print u.p()
-	v = AnotherTest()
-	w = AnotherTest()
-	print v.p()
-	print w.p()
+	def __call__(self, *args, **kwargs):
+		if self not in self._instances:
+			self._instances[self] = super(Singleton, self).__call__(*args, **kwargs)
+		return self._instances[self]
