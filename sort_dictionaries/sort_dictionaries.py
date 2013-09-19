@@ -1,70 +1,72 @@
 from collections import OrderedDict
 
+
 def sort_dictionaries(infile, outfile):
-	"""Sort dictionaries read from a file and print their id in another file"""
+    """Sort dictionaries read from a file and print their id in another file"""
 
-	def from_file(filename):
-		"""Converts a file with a specified format to dictionaries"""
-		
-		# Holds the dictionaries together with their insert order
-		dicts = OrderedDict()
+    def from_file(filename):
+        """Converts a file with a specified format to dictionaries"""
 
-		# Holds the id of the currently parsed dictionary
-		dict_id = 1
+        # Holds the dictionaries together with their insert order
+        dicts = OrderedDict()
 
-		# Holds the currently parsed dictionary
-		d = OrderedDict()
+        # Holds the id of the currently parsed dictionary
+        dict_id = 1
 
-		for line in open(filename):
-			# Start a new dictionary after each empty line; else
-			# append key-value pair to current dictionary
-			if line == '\n':
-				dicts[dict_id] = d
-				dict_id += 1
-				d = OrderedDict()
-			else:
-				key, val = line.split()
-				d[key] = val
+        # Holds the currently parsed dictionary
+        d = OrderedDict()
 
-		dicts[dict_id] = d
+        for line in open(filename):
+            # Start a new dictionary after each empty line; else
+            # append key-value pair to current dictionary
+            if line == '\n':
+                dicts[dict_id] = d
+                dict_id += 1
+                d = OrderedDict()
+            else:
+                key, val = line.split()
+                d[key] = val
 
-		return dicts
+        dicts[dict_id] = d
 
-	def sort_dicts(dicts):
-		"""Sorts a dictionary list by a specified algorithm"""
+        return dicts
 
-		def compare(a, b):
-			"""Compares dictionary values"""
-			
-			# Get the two dictionaries' values
-			av = a[1].values()
-			bv = b[1].values()
+    def sort_dicts(dicts):
+        """Sorts a dictionary list by a specified algorithm"""
 
-			# Compare values present in both dictionaries; if
-			# elements differ, return their compared values
-			for i in range(min(len(av), len(bv))):
-				if av[i] != bv[i]:
-					return cmp(av[i], bv[i])
+        def compare(a, b):
+            """Compares dictionary values"""
 
-			# Should reach this line only if all values present in both
-			# dictionaries are equal between them; in this case, the 
-			# dictionary with fewer elements is the smallest one
-			return 1 if len(av) > len(bv) else -1
+            # Get the two dictionaries' values
+            av = a[1].values()
+            bv = b[1].values()
 
-		# Sort each OrderedDict by key ascending
-		for order, dictionary in dicts.iteritems():
-			dicts[order] = OrderedDict(sorted(dictionary.items(), key=lambda k: k[0]))
+            # Compare values present in both dictionaries; if
+            # elements differ, return their compared values
+            for i in range(min(len(av), len(bv))):
+                if av[i] != bv[i]:
+                    return cmp(av[i], bv[i])
 
-		# Sort and return the OrderedDict by the cmp function
-		return sorted(dicts.items(), cmp=compare)
+            # Should reach this line only if all values present in both
+            # dictionaries are equal between them; in this case, the
+            # dictionary with fewer elements is the smallest one
+            return 1 if len(av) > len(bv) else -1
 
-	def to_file(filename, dicts):
-		"""Writes a list of dictionary ids to a file"""
+        # Sort each OrderedDict by key ascending
+        for order, dictionary in dicts.iteritems():
+            dicts[order] = OrderedDict(sorted(dictionary.items(),
+                                              key=lambda k: k[0]))
 
-		with open(filename, "w") as f:
-			for order, dictionary in dicts:
-				f.write("%s " % order)
+        # Sort and return the OrderedDict by the cmp function
+        return sorted(dicts.items(), cmp=compare)
 
-	dicts = from_file(infile)
-	dicts = sort_dicts(dicts)
-	to_file(outfile, dicts)
+    def to_file(filename, dicts):
+        """Writes a list of dictionary ids to a file"""
+
+        with open(filename, "w") as f:
+            for order, dictionary in dicts:
+                f.write("%s " % order)
+
+    dicts = from_file(infile)
+    dicts = sort_dicts(dicts)
+    to_file(outfile, dicts)
