@@ -12,19 +12,36 @@ class ModelBase(type):
 class Model(object):
 	__metaclass__ = ModelBase
 
-
-class Person(Model):
-	name = 'John Doe'
-	age = 50
+	def sql(self):
+		pass
 
 
 class Field(object):
-	pass
-
+	def __init__(self):
+		pass
 
 class IntegerField(Field):
-	pass
+	def __init__(self, *args, **kwargs):
+		super(IntegerField, self).__init__(*args, **kwargs)
+
+	def get_field_type(self):
+		return 'IntegerField'
+
+	def get_default_value(self):
+		return 0
 
 
 class StringField(Field):
-	pass
+	def __init__(self, *args, **kwargs):
+		super(StringField, self).__init__(*args, **kwargs)
+
+	def get_field_type(self):
+		return 'StringField'
+
+	def get_default_value(self):
+		return ''
+
+
+class Person(Model):
+	name = StringField()
+	age = IntegerField()
