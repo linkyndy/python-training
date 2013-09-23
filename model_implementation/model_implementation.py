@@ -1,12 +1,28 @@
 class ModelBase(type):
 
-	attrs = set()
-
 	def __new__(cls, name, bases, attrs):
-		for attr in attrs:
-			cls.attrs |= set([attr])
+		super_new = super(ModelBase, cls).__new__
+
+		# Don't add fields for base class Model
+		if name == 'Model':
+			return super_new(cls, name, bases, attrs)
+
+		module = attrs['__module__']
+		new_class = super_new(cls, name, bases, {'__module__': module})
+
+		# Initialize fields dictionary on new class
+		setattr(new_class, 'fields', {})
+
+		# Add attrs to new class' fields dictionary
+		for attr, val in attrs.iteritems():
+			new_class.add_to_class(attr, val)
 		
-		return super(ModelBase, cls).__new__(cls, name, bases, attrs)
+		return new_class
+
+	def add_to_class(cls, attr, val):
+		"""Add an attribute to class' fields dictionary"""
+		
+		getattr(cls, 'fields')[attr] = val
 
 
 class Model(object):
