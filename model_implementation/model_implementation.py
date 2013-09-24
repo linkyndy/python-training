@@ -1,4 +1,5 @@
 class ModelBase(type):
+	"""Base type for created models"""
 
 	def __new__(cls, name, bases, attrs):
 		super_new = super(ModelBase, cls).__new__
@@ -14,8 +15,10 @@ class ModelBase(type):
 		setattr(new_class, 'fields', {})
 
 		# Add attrs to new class' fields dictionary
+		# Only add attrs declared as fields
 		for attr, val in attrs.iteritems():
-			new_class.add_to_class(attr, val)
+			if isinstance(val, Field):
+				new_class.add_to_class(attr, val)
 		
 		return new_class
 
@@ -26,15 +29,31 @@ class ModelBase(type):
 
 
 class Model(object):
+	"""Base class for created objects"""
+
 	__metaclass__ = ModelBase
 
-	def sql(self):
-		pass
+	def __init__(self, **kwargs):
+		# Check the supplied number of kwargs
+		if len(kwargs) > len(self.fields):
+			raise IndexError('Too many arguments supplied to model')
+
+		# Attach supplied kwargs or default field values to model
+		# Perform validation also
+		for field, field_type in self.fields.iteritems():
+			val = kwargs.pop(field, field_type.get_default_value())
+			setattr(self, field, field_type.validate(val))
 
 
 class Field(object):
-	def __init__(self):
+	def __init__(self, max_length=None):
+		self.max_length = max_length
+
+	def validate(self, value):
+		"""Should be overridden by subclasses to provide validation"""
+
 		pass
+
 
 class IntegerField(Field):
 	def __init__(self, *args, **kwargs):
@@ -46,6 +65,12 @@ class IntegerField(Field):
 	def get_default_value(self):
 		return 0
 
+	def validate(self, val):
+		try:
+			return int(val)
+		except:
+			raise AttributeError('Invalid value for IntegerField')
+
 
 class StringField(Field):
 	def __init__(self, *args, **kwargs):
@@ -56,6 +81,12 @@ class StringField(Field):
 
 	def get_default_value(self):
 		return ''
+
+	def validate(self, val):
+		try:
+			return str(val)
+		except:
+			raise AttributeError('Invalid value for StringField')
 
 
 class Person(Model):
