@@ -38,7 +38,8 @@ class Model(object):
 		if len(kwargs) > len(self.fields):
 			raise IndexError('Too many arguments supplied to model')
 
-		# Attach supplied kwargs or default field values to model
+		# For each declared model field attach supplied kwarg
+		# or default field value
 		# Perform validation also
 		for field, field_type in self.fields.iteritems():
 			val = kwargs.pop(field, field_type.get_default_value())
@@ -81,12 +82,3 @@ class StringField(Field):
 			return str(val)
 		except:
 			raise AttributeError('Invalid value for StringField')
-
-
-class Person(Model):
-	name = StringField()
-	age = IntegerField()
-
-if __name__ == '__main__':
-	person = Person(name='John Doe')
-	print person, person.name, person.age
