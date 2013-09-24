@@ -59,9 +59,6 @@ class IntegerField(Field):
 	def __init__(self, *args, **kwargs):
 		super(IntegerField, self).__init__(*args, **kwargs)
 
-	def get_field_type(self):
-		return 'IntegerField'
-
 	def get_default_value(self):
 		return 0
 
@@ -76,9 +73,6 @@ class StringField(Field):
 	def __init__(self, *args, **kwargs):
 		super(StringField, self).__init__(*args, **kwargs)
 
-	def get_field_type(self):
-		return 'StringField'
-
 	def get_default_value(self):
 		return ''
 
@@ -92,3 +86,7 @@ class StringField(Field):
 class Person(Model):
 	name = StringField()
 	age = IntegerField()
+
+if __name__ == '__main__':
+	person = Person(name='John Doe')
+	print person, person.name, person.age
