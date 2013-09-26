@@ -32,9 +32,3 @@ def modellize(func):
             fields[field] = field_func(kwargs[field]) if field in kwargs else field_func()
         return fields
     return process
-
-
-@modellize
-def person(**kwargs):
-    return {'name': 'string_field',
-            'age': 'integer_field'}
