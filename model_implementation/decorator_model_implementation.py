@@ -1,21 +1,4 @@
-import sys
-
-def string_field(val=''):
-    """Wrapper for string fields"""
-
-    try:
-        return str(val)
-    except:
-        raise AttributeError('Invalid value for string_field')
-
-
-def integer_field(val=0):
-    """Wrapper for integer fields"""
-
-    try:
-        return int(val)
-    except:
-        raise AttributeError('Invalid value for integer_field')
+import decorator_field_types
 
 
 def modellize(func):
@@ -28,7 +11,7 @@ def modellize(func):
 
         fields = {}
         for field, field_type in func().iteritems():
-            field_func = getattr(sys.modules[__name__], field_type)
+            field_func = getattr(decorator_field_types, field_type)
             fields[field] = field_func(kwargs[field]) if field in kwargs else field_func()
         return fields
     return process

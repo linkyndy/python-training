@@ -1,4 +1,5 @@
-from decorator_model_implementation import modellize, string_field, integer_field
+from decorator_model_implementation import modellize
+from decorator_field_types import string_field, integer_field
 import unittest
 
 
