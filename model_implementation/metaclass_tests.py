@@ -1,4 +1,4 @@
-from model_implementation import ModelBase, Model, Field, StringField, IntegerField
+from metaclass_model_implementation import ModelBase, Model, Field, StringField, IntegerField
 import unittest
 
 
