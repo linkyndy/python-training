@@ -1,3 +1,5 @@
+import sys
+
 def string_field(val=''):
     """Wrapper for string fields"""
 
@@ -26,7 +28,7 @@ def modellize(func):
 
         fields = {}
         for field, field_type in func().iteritems():
-            field_func = globals()[field_type]
+            field_func = getattr(sys.modules[__name__], field_type)
             fields[field] = field_func(kwargs[field]) if field in kwargs else field_func()
         return fields
     return process
